@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LeafletJS</title>
+    <title>hallofajar-basemaps</title>
     <style>
+      html,
+      body,
       #maps {
-        height: 100vh;
+        height: 100%;
         width: 100%;
-      }
-      body {
         margin: 0;
         padding: 0;
       }
-      html,
-      body {
-        height: 100%;
-        width: 100%;
-      }
     </style>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-providers@latest/leaflet-providers.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   </head>
   <body>
@@ -29,12 +23,10 @@
       // Initialize the map
       var map = L.map("maps", { attributionControl: false });
       var myAttrControl = L.control.attribution().addTo(map);
-      myAttrControl.setPrefix(
-        '<a href="https://leafletjs.com/">Leaflet</a>'
-      );
+      myAttrControl.setPrefix('<a href="https://hallofajar.my.id/">Hallofajar</a>');
 
       map.setView([51.505, -0.09], 13);
-      // Add a tile layer
+
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution: "© OpenStreetMap",
