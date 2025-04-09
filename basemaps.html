@@ -12,24 +12,45 @@
         padding: 0;
       }
     </style>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet-providers@latest/leaflet-providers.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+
   </head>
   <body>
     <div id="maps"></div>
 
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-providers@latest/leaflet-providers.js"></script>
     <script>
       // Initialize the map
       var map = L.map("maps", { attributionControl: false });
       var myAttrControl = L.control.attribution().addTo(map);
       myAttrControl.setPrefix('<a href="https://hallofajar.my.id/">Hallofajar</a>');
-
       map.setView([51.505, -0.09], 13);
 
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      var osm_base = L.tileLayer.provider("OpenStreetMap.Mapnik", {
         maxZoom: 19,
-        attribution: "© OpenStreetMap",
+      }).addTo(map);
+      var osm_base2 = L.tileLayer.provider("CartoDB.DarkMatterNoLabels", {
+        maxZoom: 19,
+      });
+      var osm_base3 = L.tileLayer.provider("OpenStreetMap.Mapnik", {
+        maxZoom: 19,
+      });
+      var osm_base4 = L.tileLayer.provider("Esri.WorldImagery", {
+        maxZoom: 20,
+      });
+  
+      // controls
+      var baseLayers = {
+        "OpenStreetMap": osm_base,
+        "CartoDB Dark Matter": osm_base2,
+        "OpenStreetMap Mapnik": osm_base3,
+        "Esri World Imagery": osm_base4,
+      };
+
+      var layerControl = L.control.layers(baseLayers, {}, {
+        collapsed: false,
       }).addTo(map);
 
       var Geojson_Indonesia = L.geoJSON(null, {
